@@ -1,16 +1,13 @@
-FROM oven/bun:1 AS base
+FROM oven/bun:1
 WORKDIR /app
 
-COPY package.json bun.lockb* ./
+COPY package.json ./
 COPY apps/api/package.json ./apps/api/
-COPY packages/shared/package.json ./packages/shared/
+COPY apps/api/src ./apps/api/src
+COPY apps/api/tsconfig.json ./apps/api/
 
-RUN bun install --frozen-lockfile
-
-COPY . .
+RUN cd apps/api && bun install
 
 WORKDIR /app/apps/api
-RUN bun run build
-
 EXPOSE 3001
-CMD ["bun", "run", "start"]
+CMD ["bun", "run", "src/index.ts"]
