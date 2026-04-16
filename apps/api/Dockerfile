@@ -1,8 +1,8 @@
 FROM oven/bun:1
-WORKDIR /app/apps/api
+WORKDIR /app
 
-COPY apps/api/package.json ./
-COPY apps/api/src ./src
+COPY package.json ./
+COPY src ./src
 
 RUN bun install
 
